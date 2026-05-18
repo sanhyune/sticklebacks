@@ -1,6 +1,6 @@
 // https://p5play.org
 
-let player, friend, groundSensor, grass, water, sausages;
+let player, friend, shark, groundSensor, grass, water, sausages;
 let grassImg, waterImg, sausagesImg, charactersImg;
 let HP = 5;
 let sausage = 0;
@@ -20,6 +20,7 @@ function preload() {
 	sausagesImg = loadImage('sausages.png');
 	lavaImg = loadImage('lava.png');
 	charactersImg = loadImage('sticklebacks.png');
+	sharkImg = loadImage('shark.gif')
 }
 
 function setup() {
@@ -27,7 +28,7 @@ function setup() {
 	world.gravity.y = 10;
 	allSprites.pixelPerfect = true;
 
-	/*// Scale the canvas to fill the window with CSS
+	/*/ Scale the canvas to fill the window with CSS
 	let cnv = document.querySelector('canvas');
 	cnv.style.width = '100vw';
 	cnv.style.height = '100vh';
@@ -96,6 +97,8 @@ function setup() {
 	});
 	player.ani = 'idle';
 	player.rotationLock = true;
+	player.friction = 0;
+	player.overlaps(sausages, collectSausage);
 
 	friend = new Sprite(200, 100, 12, 12);
 	friend.layer = 1;
@@ -113,8 +116,10 @@ function setup() {
 	friend.ani = 'idle';
 	friend.rotationLock = true;
 
-	player.friction = 0;
-	player.overlaps(sausages, collectSausage);
+	shark = new Sprite(300, 130);
+	shark.ani = sharkImg;
+	shark.rotationLock = true;
+	shark.anis.offset.y = 1;
 
 	groundSensor = new Sprite(48, 106, 6, 12, 'n');
 	groundSensor.visible = false;
@@ -200,7 +205,7 @@ function draw() {
 		player.vel.y = Math.max(player.vel.y, 0); // still allow gravity
 		player.ani = 'idle';
 	} else {
-		if (groundSensor.overlapping(grass) || groundSensor.overlapping(water)) {
+		if (groundSensor.overlapping(grass) || groundSensor.overlapping(water) || groundSensor.overlapping(shark)) {
 			if (kb.presses('up') || kb.presses('space')) {
 				player.ani = 'jump';
 				player.vel.y = -4.5;

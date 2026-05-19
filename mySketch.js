@@ -24,7 +24,7 @@ function preload() {
 }
 
 function setup() {
-	new Canvas(300, 160, 'pixelated');
+	new Canvas(windowWidth, windowHeight, 'pixelated');
 	world.gravity.y = 10;
 	allSprites.pixelPerfect = true;
 

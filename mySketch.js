@@ -2,7 +2,7 @@
 
 let player, friend, groundSensor, grass, water, sausages;
 let grassImg, waterImg, sausagesImg, charactersImg;
-let HP = 5;
+let HP = 3;
 let sausage = 0;
 // --- Dialogue system ---
 let dialogueActive = false;
@@ -32,7 +32,7 @@ function setup() {
 		start()
 	}	
 	
-	new Canvas(300, 160, 'pixelated');
+	new Canvas(600, 320, 'pixelated');
 	world.gravity.y = 10;
 	allSprites.pixelPerfect = true;
 

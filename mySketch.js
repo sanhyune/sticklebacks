@@ -2,9 +2,8 @@
 
 let player, friend, groundSensor, grass, water, sausages;
 let grassImg, waterImg, sausagesImg, charactersImg;
-let HP = 3;
+let HP = 5;
 let sausage = 0;
-// --- Dialogue system ---
 let dialogueActive = false;
 let dialogueLines = [
   "Hey! You found me!",
@@ -13,28 +12,32 @@ let dialogueLines = [
   "Good luck out there!"
 ];
 let dialogueLine = 0;
-let friendTalked = false; // so dialogue only triggers once per approach
-
+let friendTalked = false;
 
 function preload() {
 	grassImg = loadImage('grass.png');
 	waterImg = loadImage('water.png');
 	sausagesImg = loadImage('sausages.png');
-	lavaImg = loadImage('lava.png')
+	lavaImg = loadImage('lava.png');
 	charactersImg = loadImage('sticklebacks.png');
 }
 
-
 function setup() {
-
-	if (keyIsDown(13) === true && TimeElapsed < 3773) {
-		TimeElapsed = 10
-		start()
-	}	
-	
 	new Canvas(300, 160, 'pixelated');
 	world.gravity.y = 10;
 	allSprites.pixelPerfect = true;
+
+	// Scale the canvas to fill the window with CSS
+	let cnv = document.querySelector('canvas');
+	cnv.style.width = '100vw';
+	cnv.style.height = '100vh';
+	cnv.style.objectFit = 'contain';
+	cnv.style.imageRendering = 'pixelated';
+	cnv.style.display = 'block';
+	cnv.style.margin = '0 auto';
+	document.body.style.margin = '0';
+	document.body.style.background = 'black';
+	document.body.style.overflow = 'hidden';
 
 	grass = new Group();
 	grass.layer = 0;
@@ -59,12 +62,7 @@ function setup() {
 	sausages = new Group();
 	sausages.collider = 'static';
 	sausages.spriteSheet = sausagesImg;
-	sausages.addAni({
-		w: 16,
-		h: 16,
-		row: 0,
-		frames: 11
-	});
+	sausages.addAni({ w: 16, h: 16, row: 0, frames: 11 });
 	sausages.tile = 'c';
 
 	new Tiles(
@@ -80,10 +78,7 @@ function setup() {
 			'     c c c       c c                          ccc                       cccccccccccccccccccccccc',
 			'gggggggggggwwwwwggggg  gggggvvvvvvvvvvvvvggg  ggg    gggggggggggggggggggggggggggggggggggggggggggggggggggggggg'
 		],
-		8,
-		8,
-		16,
-		16
+		8, 8, 16, 16
 	);
 
 	player = new Sprite(48, 100, 12, 12);
@@ -94,23 +89,10 @@ function setup() {
 	player.anis.frameDelay = 8;
 	player.spriteSheet = charactersImg;
 	player.addAnis({
-		idle: {
-			row: 0,
-			frames: 4
-		},
-		knockback: {
-			row: 0,
-			frames: 1
-		},
-		run: {
-			row: 0,
-			frames: 4
-		},
-		jump: {
-			row: 1,
-			col: 3,
-			frames: 2
-		}
+		idle:      { row: 0, frames: 4 },
+		knockback: { row: 0, frames: 1 },
+		run:       { row: 0, frames: 4 },
+		jump:      { row: 1, col: 3, frames: 2 }
 	});
 	player.ani = 'idle';
 	player.rotationLock = true;
@@ -123,42 +105,17 @@ function setup() {
 	friend.anis.frameDelay = 8;
 	friend.spriteSheet = charactersImg;
 	friend.addAnis({
-		idle: {
-			row: 1,
-			frames: 4
-		},
-		knockback: {
-			row: 0,
-			frames: 1
-		},
-		run: {
-			row: 0,
-			frames: 4
-		},
-		jump: {
-			row: 1,
-			col: 3,
-			frames: 2
-		}
+		idle:      { row: 1, frames: 4 },
+		knockback: { row: 0, frames: 1 },
+		run:       { row: 0, frames: 4 },
+		jump:      { row: 1, col: 3, frames: 2 }
 	});
 	friend.ani = 'idle';
 	friend.rotationLock = true;
 
-	// IMPORTANT! prevents the player from sticking to the sides of walls
 	player.friction = 0;
-
 	player.overlaps(sausages, collectSausage);
 
-	// This groundSensor sprite is used to check if the player
-	// is close enough to the ground to jump. But why not use
-	// `player.colliding(grass)`? Because then the player could
-	// jump if they were touching the side of a wall!
-	// Also the player's collider bounces a bit when it hits
-	// the ground, even if its bounciness is set to 0. When
-	// making a platformer game, you want the player to 
-	// be able to jump right after they land.
-	// This approach was inspired by this tutorial:
-	// https://www.iforce2d.net/b2dtut/jumpability
 	groundSensor = new Sprite(48, 106, 6, 12, 'n');
 	groundSensor.visible = false;
 	groundSensor.mass = 0.01;
@@ -174,7 +131,6 @@ function collectSausage(player, sausages) {
 	sausage++;
 }
 
-// Draw the dialogue box using p5's 2D drawing (in screen space)
 function drawDialogue() {
 	// Position box near bottom of screen, always in screen coords
 	let bx = 90, by = 25, bw = 200, bh = 45;
@@ -205,8 +161,7 @@ function drawDialogue() {
 }
 
 function keyPressed() {
-	// Advance or close dialogue with Z key
-	if (dialogueActive && (key === 'Enter' || key === 'Enter')) {
+	if (dialogueActive && key === 'Enter') {
 		dialogueLine++;
 		if (dialogueLine >= dialogueLines.length) {
 			dialogueActive = false;
@@ -217,12 +172,8 @@ function keyPressed() {
 
 function draw() {
 	background('skyblue');
-	fill(255);
 
-	text('Sausage: ' + sausage, 47, 32);
-	text('HP: ' + HP, 31, 20);
-
-	// --- Check if player touches friend and open dialogue ---
+	// --- Dialogue trigger ---
 	if (player.overlapping(friend)) {
 		if (!friendTalked) {
 			dialogueActive = true;
@@ -230,24 +181,11 @@ function draw() {
 			dialogueLine = 0;
 		}
 	} else {
-		// Allow dialogue to trigger again next time they meet
 		friendTalked = false;
 	}
-	
-	if (!dialogueActive) {
-		// make the player slower in water/lava
-		if (groundSensor.overlapping(water) || groundSensor.overlapping(lava)) {
-			player.drag = 20;
-			player.friction = 35;
-		} else {
-			player.drag = 0;
-			player.friction = 0;
-		}
-	}
-	
-	// make the player slower in water
-	if (groundSensor.overlapping(water) ||
-		groundSensor.overlapping(lava)) {
+
+	// --- Water/lava drag (always applies) ---
+	if (groundSensor.overlapping(water) || groundSensor.overlapping(lava)) {
 		player.drag = 20;
 		player.friction = 35;
 	} else {
@@ -255,77 +193,92 @@ function draw() {
 		player.friction = 0;
 	}
 
-	if (groundSensor.overlapping(grass) ||
-		groundSensor.overlapping(water)) {
-		if (kb.presses('up') || kb.presses('space')) {
-			player.ani = 'jump';
-			player.vel.y = -4.5;
+	// --- Movement: fully blocked during dialogue ---
+	if (dialogueActive) {
+		// Hard stop the player
+		player.vel.x = 0;
+		player.vel.y = Math.max(player.vel.y, 0); // still allow gravity
+		player.ani = 'idle';
+	} else {
+		if (groundSensor.overlapping(grass) || groundSensor.overlapping(water)) {
+			if (kb.presses('up') || kb.presses('space')) {
+				player.ani = 'jump';
+				player.vel.y = -4.5;
+			}
+		}
+
+		if (kb.pressing('left')) {
+			player.ani = 'run';
+			player.vel.x = -1.5;
+			player.mirror.x = true;
+		} else if (kb.pressing('right')) {
+			player.ani = 'run';
+			player.vel.x = 1.5;
+			player.mirror.x = false;
+		} else {
+			player.ani = 'idle';
+			player.vel.x = 0;
 		}
 	}
 
-	if (kb.pressing('left')) {
-		player.ani = 'run';
-		player.vel.x = -1.5;
-		player.mirror.x = true;
-	} else if (kb.pressing('right')) {
-		player.ani = 'run';
-		player.vel.x = 1.5;
-		player.mirror.x = false;
-	} else {
-		player.ani = 'idle';
-		player.vel.x = 0;
-	}
-
-	// if player falls, reset them
-	if ((player.y > 400) ||
-		player.colliding(lava)) {
+	// --- Fall / lava damage ---
+	if (player.y > 400 || player.colliding(lava)) {
 		player.speed = 0;
 		player.x = 100;
 		player.y = 100;
-		HP = HP - 1
+		HP--;
 	}
 
-	if (sausage == 10) {
-		gamewin()
-	}
+	// --- Win / Lose ---
+	if (sausage >= 10) gamewin();
+	if (HP <= 0) gameover();
 
 	function gamewin() {
+		background('black');
 		textAlign(CENTER);
-		background('black')
-		text('YOU HAVE WON THE GAME! / FINAL SCORE: ' + sausage, 140, 60);
-		player.speed = 0
-		water.visible = false
-		sausages.visible = false
-		grass.visible = false
-		lava.visible = false
-		camera.x = player.x
-	}
-
-	if (HP == 0) {
-		gameover()
+		fill(255);
+		textSize(12);
+		text('YOU HAVE WON! / SAUSAGES COLLECTED: ' + sausage, 150, 80);
+		player.speed = 0;
+		water.visible = false;
+		sausages.visible = false;
+		grass.visible = false;
+		lava.visible = false;
+		camera.x = player.x;
 	}
 
 	function gameover() {
+		background('black');
 		textAlign(CENTER);
-		background('black')
-		text('GAMEOVER / FINAL SCORE: ' + sausage, 140, 60);
-		player.speed = 0
-		water.visible = false
-		sausages.visible = false
-		grass.visible = false
-		lava.visible = false
-		camera.x = player.x
+		fill(255);
+		textSize(12);
+		text('GAME OVER / SAUSAGES COLLECTED: ' + sausage, 150, 80);
+		player.speed = 0;
+		water.visible = false;
+		sausages.visible = false;
+		grass.visible = false;
+		lava.visible = false;
+		camera.x = player.x;
 	}
 
 	camera.x = player.x + 52;
 
-		// Draw dialogue on top (in screen space, after camera is set)
-	if (dialogueActive) {
-		push();
-		resetMatrix();
-		let s = width / 300; // scale factor based on canvas size
-		scale(s);
-		drawDialogue();
-		pop();
-	}
+	// --- HUD + dialogue in screen space ---
+	push();
+	resetMatrix();
+	let s = width / 300;
+	scale(s);
+
+	// HUD
+	fill(255);
+	noStroke();
+	textSize(12);
+	textAlign(LEFT);
+	text('Sausage: ' + sausage, 6, 25);
+	text('HP: ' + HP, 6, 13);
+
+	// Dialogue box
+	if (dialogueActive) drawDialogue();
+
+	pop();
 }

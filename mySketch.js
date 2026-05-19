@@ -1,8 +1,8 @@
 // https://p5play.org
 
-let player, friend, shark, groundSensor, grass, water, sausages;
+let player, friend, friend1, friend2, shark, groundSensor, grass, water, sausages;
 let grassImg, waterImg, sausagesImg, charactersImg;
-let HP = 5;
+let HP = 3;
 let sausage = 0;
 let dialogueActive = false;
 let dialogueLines = [
@@ -76,8 +76,8 @@ function setup() {
 			'   gg',
 			'       c                        c  g',
 			'      ggg    c                  g',
-			'            ggg             g                 ccc',
-			'                                              ccc',
+			'            ggg             g                 ',
+			'                                              ',
 			'     c c c       c c                          ccc                       cccccccccccccccccccccccc',
 			'gggggggggggwwwwwggggg  gggggvvvvvvvvvvvvvggg  ggg    gggggggggggggggggggggggggggggggggggggggggggggggggggggggg'
 		],
@@ -117,6 +117,38 @@ function setup() {
 	});
 	friend.ani = 'idle';
 	friend.rotationLock = true;
+
+	friend1 = new Sprite(450, 100, 12, 12);
+	friend1.layer = 1;
+	friend1.anis.w = 16;
+	friend1.anis.h = 16;
+	friend1.anis.offset.y = 1;
+	friend1.anis.frameDelay = 8;
+	friend1.spriteSheet = charactersImg;
+	friend1.addAnis({
+		idle:      { row: 1, frames: 4 },
+		knockback: { row: 0, frames: 1 },
+		run:       { row: 0, frames: 4 },
+		jump:      { row: 1, col: 3, frames: 2 }
+	});
+	friend1.ani = 'idle';
+	friend1.rotationLock = true;
+
+	friend2 = new Sprite(700, 100, 12, 12);
+	friend2.layer = 1;
+	friend2.anis.w = 16;
+	friend2.anis.h = 16;
+	friend2.anis.offset.y = 1;
+	friend2.anis.frameDelay = 8;
+	friend2.spriteSheet = charactersImg;
+	friend2.addAnis({
+		idle:      { row: 2, frames: 4 },
+		knockback: { row: 0, frames: 1 },
+		run:       { row: 0, frames: 4 },
+		jump:      { row: 1, col: 3, frames: 2 }
+	});
+	friend2.ani = 'idle';
+	friend2.rotationLock = true;
 
 	shark = new Sprite(300, 130);
 	shark.ani = sharkImg;
@@ -181,7 +213,7 @@ function draw() {
 	background('skyblue');
 
 	// --- Dialogue trigger ---
-	if (player.overlapping(friend)) {
+	if (player.overlapping(friend, friend1, friend2)) {
 		if (!friendTalked) {
 			dialogueActive = true;
 			friendTalked = true;
@@ -237,7 +269,7 @@ function draw() {
 	}
 
 	// --- Win / Lose ---
-	if (sausage >= 10) gamewin();
+	if (sausage >= 20) gamewin();
 	if (HP <= 0) gameover();
 
 	function gamewin() {

@@ -27,6 +27,8 @@ function setup() {
 	new Canvas(300, 160, 'pixelated');
 	world.gravity.y = 10;
 	allSprites.pixelPerfect = true;
+	pixelDensity(1);
+
 
 	/*/ Scale the canvas to fill the window with CSS
 	let cnv = document.querySelector('canvas');

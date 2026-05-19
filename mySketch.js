@@ -7,7 +7,7 @@ let sausage = 0;
 let dialogueActive = false;
 let dialogueLines = [
   "Hey! You found me!",
-  "Watch out for the lava ahead...",
+  "Watch out for the spike ahead...",
   "Collect all the sausages to win!",
   "Good luck out there!"
 ];
@@ -18,7 +18,7 @@ function preload() {
 	grassImg = loadImage('grass.png');
 	waterImg = loadImage('water.png');
 	sausagesImg = loadImage('sausages.png');
-	lavaImg = loadImage('lava.png');
+	lavaImg = loadImage('spikke.png');
 	charactersImg = loadImage('sticklebacks.png');
 	sharkImg = loadImage('shark.gif')
 }

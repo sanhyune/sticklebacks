@@ -4,9 +4,18 @@
     <meta charset="utf-8">
     <title>My Platformer</title>
     <style>
-      body { margin: 0; background: #000; display: flex; justify-content: center; }
-      canvas { image-rendering: pixelated; }
+    body { margin: 0; background: #000; overflow: hidden; }
+    canvas {
+    display: block;
+    width: 100vw;
+    height: 100vh;
+    object-fit: contain;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges; /* fallback for Firefox */
+  }
+</style>
     </style>
+    
   </head>
   <body>
     <!-- Updated p5.js version that p5play supports -->

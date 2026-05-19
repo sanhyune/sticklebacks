@@ -266,11 +266,10 @@ function draw() {
 		camera.x = player.x;
 	}
 
-	borderx = 1080
-	
 	camera.x = player.x + 52;
+	/* let borderx = 1080
 	if (camera.x < 150) camera.x = 150;
-	if (camera.x > borderx) camera.x = borderx;
+	if (camera.x > borderx) camera.x = borderx;*/
 
 	// --- HUD + dialogue in screen space ---
 	push();

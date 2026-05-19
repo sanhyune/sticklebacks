@@ -5,22 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stickleback Platformer</title>
     <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { background: black; overflow: hidden; }
-    canvas {
-      display: block;
-      width: 100vw;
-      height: 100vh;
-      object-fit: contain;
-      image-rendering: pixelated;
-      image-rendering: crisp-edges;
-    }
-</style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { background: black; overflow: hidden; display: flex; justify-content: center; align-items: center; width: 100vw; height: 100vh; }
+      canvas {
+        image-rendering: pixelated;
+        image-rendering: crisp-edges;
+        width: auto !important;
+        height: 100vh !important;
+        aspect-ratio: 300 / 160;
+      }
     </style>
-    
   </head>
   <body>
-    <!-- Updated p5.js version that p5play supports -->
     <script src="https://cdn.jsdelivr.net/npm/p5@1.11.4/lib/p5.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/p5@1.11.4/lib/addons/p5.sound.min.js"></script>
     <script src="https://p5play.org/v3/planck.min.js"></script>

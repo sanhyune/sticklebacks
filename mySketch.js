@@ -213,7 +213,7 @@ function draw() {
 	background('skyblue');
 
 	// --- Dialogue trigger ---
-	if (player.overlapping(friend, friend1, friend2)) {
+	if (player.overlapping(friend) || player.overlapping(friend1) || player.overlapping(friend2)) {
 		if (!friendTalked) {
 			dialogueActive = true;
 			friendTalked = true;

@@ -27,7 +27,7 @@ function setup() {
 	world.gravity.y = 10;
 	allSprites.pixelPerfect = true;
 
-	// Scale the canvas to fill the window with CSS
+	/*// Scale the canvas to fill the window with CSS
 	let cnv = document.querySelector('canvas');
 	cnv.style.width = '100vw';
 	cnv.style.height = '100vh';
@@ -37,7 +37,7 @@ function setup() {
 	cnv.style.margin = '0 auto';
 	document.body.style.margin = '0';
 	document.body.style.background = 'black';
-	document.body.style.overflow = 'hidden';
+	document.body.style.overflow = 'hidden';*/
 
 	grass = new Group();
 	grass.layer = 0;

@@ -276,7 +276,7 @@ function draw() {
 		background('black');
 		textAlign(CENTER);
 		fill(255);
-		textSize(12);
+		textSize(10);
 		text('YOU HAVE WON! / SAUSAGES COLLECTED: ' + sausage, 150, 80);
 		player.speed = 0;
 		water.visible = false;
@@ -290,7 +290,7 @@ function draw() {
 		background('black');
 		textAlign(CENTER);
 		fill(255);
-		textSize(12);
+		textSize(10);
 		text('GAME OVER / SAUSAGES COLLECTED: ' + sausage, 150, 80);
 		player.speed = 0;
 		water.visible = false;
@@ -314,10 +314,10 @@ function draw() {
 	// HUD
 	fill(255);
 	noStroke();
-	textSize(12);
+	textSize(10);
 	textAlign(LEFT);
-	text('Sausage: ' + sausage, 6, 25);
-	text('HP: ' + HP, 6, 13);
+	text('Sausage: ' + sausage, 10, 25);
+	text('HP: ' + HP, 10, 13);
 
 	// Dialogue box
 	if (dialogueActive) drawDialogue();

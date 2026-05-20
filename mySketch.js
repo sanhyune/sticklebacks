@@ -179,9 +179,9 @@ function setup() {
 	eagle.addAni({ w: 16, h: 16, row: 0, frames: 12 });
 	eagle.rotationLock = true;
 
-	shark = new Sprite(300, 130);
+	/*shark = new Sprite(300, 130);
 	shark.img = sharkImg;
-	shark.rotationLock = true;
+	shark.rotationLock = true;*/
 
 	groundSensor = new Sprite(48, 106, 6, 12, 'n');
 	groundSensor.visible = false;
@@ -295,11 +295,8 @@ function draw() {
 
 	// --- Water/lava drag (always applies) ---
 	if (groundSensor.overlapping(water)) {
-		player.drag = 20;
-		player.friction = 35;
-	} else {
-		player.drag = 0;
-		player.friction = 0;
+		player.drag = -20;
+		player.friction = -35;
 	}
 
 	// --- Movement: fully blocked during dialogue ---

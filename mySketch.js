@@ -330,7 +330,7 @@ function draw() {
 		textAlign(CENTER);
 		fill(255);
 		textSize(10);
-		text('GAME OVER / SAUSAGES COLLECTED: ' + sausage, 150, 80);
+		text('YOU ARE DEAD / SAUSAGES COLLECTED: ' + sausage, 150, 80);
 		pop();
 		player.speed = 0;
 		water.visible = false;

@@ -176,7 +176,7 @@ function setup() {
 	eagle = new Sprite(700, 100);
 	eagle.img = eagleImg;
 	eagle.spriteSheet = eagleImg;
-	sausages.addAni({ w: 16, h: 16, row: 0, frames: 12 });
+	eagle.addAni({ w: 16, h: 16, row: 0, frames: 12 });
 	eagle.rotationLock = true;
 
 	shark = new Sprite(300, 130);

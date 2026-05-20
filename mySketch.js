@@ -9,26 +9,31 @@ let dialogueLine = 0;
 let currentDialogue = [];
 
 let friendLines = [
-  "Hey! You found me!",
-  "I'm sorry to tell you this but...",
-  "We're going to talk about convergent evolution!",
-  "Good luck out there!"
+  "Hi! I'm a stickleback fish.",
+  "Convergent evolution means unrelated species evolve similar traits.",
+  "It happens when species face similar environments or pressures.",
+  "Keep going to learn more!"
 ];
+
 let friend1Lines = [
-  "Hi! I'm the second stickleback.",
-  "Did you know we evolved independently?",
-  "Different lakes, same changes!",
-  "That's convergent evolution!"
+  "Look at sharks, dolphins, and whales.",
+  "They all evolved the same streamlined body shape.",
+  "Yet they're not closely related at all!",
+  "Same problem, same solution — that's convergent evolution."
 ];
+
 let friend2Lines = [
-  "You made it this far!",
-  "We all lost our pelvic spines.",
-  "The EDA gene drove these changes.",
-  "Same gene, different populations!"
+  "Even humans have convergent evolution!",
+  "Humans and octopuses both evolved camera eyes independently.",
+  "Though octopuses have no blind spot — lucky them.",
+  "Same eye, different ancestor!"
 ];
+
 let eagleLines = [
   "Screech! I'm an eagle!",
-  "I eat sticklebacks for breakfast.",
+  "Falcons, hawks, and I all evolved similar hunting eyes.",
+  "We're distantly related but faced the same hunting challenge.",
+  "That's convergent evolution in action!"
 ];
 
 let friendTalked = false;
@@ -173,7 +178,7 @@ function setup() {
 	friend2.ani = 'idle';
 	friend2.rotationLock = true;
 
-	eagle = new Sprite(700, 100, 16, 16);
+	eagle = new Sprite(600, 100, 16, 16);
 	eagle.spriteSheet = eagleImg;
 	eagle.addAni('idle', { w: 16, h: 16, row: 0, frames: 12 });
 	eagle.ani = 'idle';
@@ -213,7 +218,7 @@ function drawDialogue() {
 	noStroke();
 	fill(255);
 	textAlign(LEFT);
-	textSize(8);
+	textSize(9);
 	text(currentDialogue[dialogueLine], bx + 8, by + 14, bw - 16, bh - 10);
 
 	// "Press Z" prompt
@@ -267,12 +272,13 @@ function drawPrompt(targetSprite) {
     fill(255, 255, 100);
     noStroke();
     textAlign(CENTER);
-    textSize(7);
+    textSize(8);
     text('[E]', sx, sy);
 }
 
 function draw() {
 	background('skyblue');
+		camera.x = player.x + 52;
 
 	// --- Dialogue trigger ---
 	// --- Show "press E" prompt and trigger dialogue on E ---
@@ -370,7 +376,6 @@ function draw() {
 		camera.x = player.x;
 	}
 
-	camera.x = player.x + 52;
 	/*let borderx = -300
 	if (camera.x < 150) camera.x = 150;
 	if (camera.x > borderx) camera.x = borderx;*/
@@ -383,7 +388,7 @@ function draw() {
 
 	fill(255);
 	noStroke();
-	textSize(10);
+	textSize(11);
 	textAlign(LEFT);
 	text('Sausage: ' + sausage, 10, 25);
 	text('HP: ' + HP, 10, 13);

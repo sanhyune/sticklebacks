@@ -399,7 +399,8 @@ function draw() {
 }
 
 // Shark interaction
-	if (finSpawned && player.overlapping(shark) && !sharkTalked) {
+	// change this:
+if (player.overlapping(shark) && !sharkTalked) {
     sharkTalked = true;
     sharkTalking = true;
     dialogueActive = true;  // this line was missing

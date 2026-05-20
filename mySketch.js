@@ -193,7 +193,7 @@ function collectSausage(player, sausages) {
 }
 
 function drawDialogue() {
-	let bx = 90, by = 25, bw = 200, bh = 60;
+	let bx = 90, by = 15, bw = 200, bh = 60;
 
 	noStroke();
 	fill(0, 0, 0, 200);
@@ -326,11 +326,13 @@ function draw() {
 		finSpawned = true;
 		fin = new Sprite(1500, 100, 16, 16);
 		fin.layer = 1;
-		fin.anis.offset.y = 1;
-		fin.addAni('idle', { w: 16, h: 16, row: 0, col: 0, frames: 14 });
-		fin.spriteSheet = finImg;
-		fin.rotationLock = true;
+		fin.spriteSheet = finImg;  // spriteSheet BEFORE addAni
+		fin.anis.w = 128;
+		fin.anis.h = 128;
+		fin.anis.frameDelay = 8;
+		fin.addAni('idle', { w: 128, h: 128, row: 0, col: 0, frames: 14 });
 		fin.ani = 'idle';
+		fin.rotationLock = true;
 		fin.collider = 'static';
 	}
 

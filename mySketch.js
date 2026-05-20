@@ -41,6 +41,7 @@ let friend1Talked = false;
 let friend2Talked = false;
 let eagleTalked = false;
 let finSpawned = false;
+let finCollected = false;
 
 function preload() {
 	grassImg = loadImage('grass.png');
@@ -193,7 +194,7 @@ function collectSausage(player, sausages) {
 }
 
 function drawDialogue() {
-	let bx = 90, by = 15, bw = 200, bh = 60;
+	let bx = 100, by = 15, bw = 170, bh = 60;
 
 	noStroke();
 	fill(0, 0, 0, 200);
@@ -315,18 +316,29 @@ function draw() {
 	}
 
 	if (player.y > 400 || player.colliding(lava)) {
-		player.speed = 0;
-		player.x = 100;
-		player.y = 100;
-		HP--;
+    player.speed = 0;
+    player.x = 100;
+    player.y = 100;
+    HP--;
+}
+
+// Shark interaction
+	if (finSpawned && player.overlapping(shark)) {
+		if (finCollected) {
+			gamewin();
+		} else {
+			gameover();
+		}
 	}
+
+if (HP <= 0) gameover();
 
 		// Spawn fin when 25 sausages collected
 	if (sausage >= 25 && !finSpawned) {
 		finSpawned = true;
 		fin = new Sprite(1500, 100, 16, 16);
 		fin.layer = 1;
-		fin.spriteSheet = finImg;  // spriteSheet BEFORE addAni
+		fin.spriteSheet = finImg;
 		fin.anis.w = 128;
 		fin.anis.h = 128;
 		fin.anis.frameDelay = 8;
@@ -334,10 +346,13 @@ function draw() {
 		fin.ani = 'idle';
 		fin.rotationLock = true;
 		fin.collider = 'static';
+		fin.overlaps(player, collectFin);
 	}
 
-	//if (sausage >= 20) gamewin();
-	if (HP <= 0) gameover();
+	function collectFin(fin, player) {
+   		fin.remove();
+    	finCollected = true;
+	}
 
 	function gamewin() {
 		background('black');

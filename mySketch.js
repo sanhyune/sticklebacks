@@ -178,7 +178,7 @@ function setup() {
 	friend2.ani = 'idle';
 	friend2.rotationLock = true;
 
-	eagle = new Sprite(600, 100, 16, 16);
+	eagle = new Sprite(632, 100, 16, 16);
 	eagle.spriteSheet = eagleImg;
 	eagle.addAni('idle', { w: 16, h: 16, row: 0, frames: 12 });
 	eagle.ani = 'idle';
@@ -201,8 +201,7 @@ function collectSausage(player, sausages) {
 
 function drawDialogue() {
 	// Position box near bottom of screen, always in screen coords
-	let bx = 90, by = 25, bw = 200, bh = 45;
-
+ let bx = 10, by = 105, bw = 280, bh = 45; // change bh to 55 or 60
 	// Semi-transparent dark box
 	noStroke();
 	fill(0, 0, 0, 180);

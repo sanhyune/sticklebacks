@@ -76,15 +76,15 @@ function setup() {
 			'   gg',
 			'       c                        c  g',
 			'      ggg    c                  g',
-			'            ggg             g                 ',
+			'            ggg             g          g      ',
 			'                                              ',
 			'     c c c       c c                          ccc                       cccccccccccccccccccccccc',
-			'gggggggggggwwwwwggggg  gggggvvvvvvvvvvvvvggg  ggg    gggggggggggggggggggggggggggggggggggggggggggggggggggggggg'
+			'gggggggggggwwwwwggggg  gggggvvvvvvvvvvvvvggg  gggvvvvgggggggggggggggggggggggggggggggggggggggggggggggggggggggg'
 		],
 		8, 8, 16, 16
 	);
 
-	player = new Sprite(48, 100, 12, 12);
+	player = new Sprite(42, 100, 12, 12);
 	player.layer = 1;
 	player.anis.w = 16;
 	player.anis.h = 16;
@@ -102,7 +102,7 @@ function setup() {
 	player.friction = 0;
 	player.overlaps(sausages, collectSausage);
 
-	friend = new Sprite(200, 100, 12, 12);
+	friend = new Sprite(232, 100, 12, 12);
 	friend.layer = 1;
 	friend.anis.w = 16;
 	friend.anis.h = 16;

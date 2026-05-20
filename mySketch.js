@@ -278,6 +278,43 @@ function keyPressed() {
 }
 }
 
+	function collectFin(fin, player) {
+   		fin.remove();
+    	finCollected = true;
+	}
+
+	function gamewin() {
+		background('black');
+		textAlign(CENTER);
+		fill(255);
+		textSize(10);
+		text('YOU HAVE WON! / SAUSAGES COLLECTED: ' + sausage, 150, 80);
+		player.speed = 0;
+		water.visible = false;
+		sausages.visible = false;
+		grass.visible = false;
+		lava.visible = false;
+		camera.x = player.x;
+	}
+
+	function gameover() {
+		background('black');
+		textAlign(CENTER);
+		fill(255);
+		textSize(10);
+		text('GAME OVER / SAUSAGES COLLECTED: ' + sausage, 150, 80);
+		player.speed = 0;
+		water.visible = false;
+		sausages.visible = false;
+		grass.visible = false;
+		lava.visible = false;
+		friend.visible = false;
+		friend1.visible = false;
+		friend2.visible = false;
+		eagle.visible = false;
+		camera.x = player.x;
+	}
+
 function draw() {
 	background('skyblue');
 	camera.x = player.x + 52;
@@ -359,51 +396,14 @@ if (HP <= 0) gameover();
 		fin = new Sprite(1500, 100, 16, 16);
 		fin.layer = 1;
 		fin.spriteSheet = finImg;
-		fin.anis.w = 128;
-		fin.anis.h = 128;
+		fin.anis.w = 16;
+		fin.anis.h = 16;
 		fin.anis.frameDelay = 8;
-		fin.addAni('idle', { w: 128, h: 128, row: 0, col: 0, frames: 14 });
+		fin.addAni('idle', { w: 16, h: 16, row: 0, col: 0, frames: 14 });
 		fin.ani = 'idle';
 		fin.rotationLock = true;
 		fin.collider = 'static';
 		fin.overlaps(player, collectFin);
-	}
-
-	function collectFin(fin, player) {
-   		fin.remove();
-    	finCollected = true;
-	}
-
-	function gamewin() {
-		background('black');
-		textAlign(CENTER);
-		fill(255);
-		textSize(10);
-		text('YOU HAVE WON! / SAUSAGES COLLECTED: ' + sausage, 150, 80);
-		player.speed = 0;
-		water.visible = false;
-		sausages.visible = false;
-		grass.visible = false;
-		lava.visible = false;
-		camera.x = player.x;
-	}
-
-	function gameover() {
-		background('black');
-		textAlign(CENTER);
-		fill(255);
-		textSize(10);
-		text('GAME OVER / SAUSAGES COLLECTED: ' + sausage, 150, 80);
-		player.speed = 0;
-		water.visible = false;
-		sausages.visible = false;
-		grass.visible = false;
-		lava.visible = false;
-		friend.visible = false;
-		friend1.visible = false;
-		friend2.visible = false;
-		eagle.visible = false;
-		camera.x = player.x;
 	}
 
 	// HUD + dialogue drawn after everything else

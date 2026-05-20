@@ -1,6 +1,6 @@
 // https://p5play.org
 
-let player, friend, friend1, friend2, eagle, shark, groundSensor, grass, water, sausages;
+let player, friend, friend1, friend2, eagle, groundSensor, grass, water, sausages;
 let grassImg, waterImg, sausagesImg, charactersImg;
 let HP = 5;
 let sausage = 0;
@@ -42,7 +42,7 @@ function preload() {
 	sausagesImg = loadImage('sausages.png');
 	lavaImg = loadImage('spikke.png');
 	charactersImg = loadImage('sticklebacks.png');
-	sharkImg = loadImage('shark.gif')
+	// sharkImg = loadImage('shark.gif')
 	eagleImg = loadImage('eagle.png');
 }
 
@@ -178,10 +178,6 @@ function setup() {
 	eagle.addAni('idle', { w: 16, h: 16, row: 0, frames: 12 });
 	eagle.ani = 'idle';
 	eagle.rotationLock = true;
-
-	/*shark = new Sprite(300, 130);
-	shark.img = sharkImg;
-	shark.rotationLock = true;*/
 
 	groundSensor = new Sprite(48, 106, 6, 12, 'n');
 	groundSensor.visible = false;
@@ -370,7 +366,6 @@ function draw() {
 		friend.visible = false;
 		friend1.visible = false;
 		friend2.visible = false;
-		/*shark.visible = false;*/
 		eagle.visible = false;
 		camera.x = player.x;
 	}

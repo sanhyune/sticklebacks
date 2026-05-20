@@ -5,14 +5,31 @@ let grassImg, waterImg, sausagesImg, charactersImg;
 let HP = 3;
 let sausage = 0;
 let dialogueActive = false;
-let dialogueLines = [
+let dialogueLine = 0;
+let currentDialogue = [];
+
+let friend0Lines = [
   "Hey! You found me!",
   "Watch out for the spike ahead...",
   "Collect all the sausages to win!",
   "Good luck out there!"
 ];
-let dialogueLine = 0;
+let friend1Lines = [
+  "Hi! I'm the second stickleback.",
+  "Did you know we evolved independently?",
+  "Different lakes, same changes!",
+  "That's convergent evolution!"
+];
+let friend2Lines = [
+  "You made it this far!",
+  "We all lost our armor plates.",
+  "The EDA gene drove these changes.",
+  "Same gene, different populations!"
+];
+
 let friendTalked = false;
+let friend1Talked = false;
+let friend2Talked = false;
 
 function preload() {
 	grassImg = loadImage('grass.png');
@@ -190,7 +207,7 @@ function drawDialogue() {
 	fill(255);
 	textAlign(LEFT);
 	textSize(10);
-	text(dialogueLines[dialogueLine], bx + 8, by + 14, bw - 16, bh - 10);
+	text(currentDialogue[dialogueLine], bx + 8, by + 14, bw - 16, bh - 10);
 
 	// "Press Z" prompt
 	textAlign(RIGHT);
@@ -202,7 +219,7 @@ function drawDialogue() {
 function keyPressed() {
 	if (dialogueActive && key === 'Enter') {
 		dialogueLine++;
-		if (dialogueLine >= dialogueLines.length) {
+		if (dialogueLine >= currentDialogue.length) {
 			dialogueActive = false;
 			dialogueLine = 0;
 		}
@@ -213,14 +230,31 @@ function draw() {
 	background('skyblue');
 
 	// --- Dialogue trigger ---
-	if (player.overlapping(friend) || player.overlapping(friend1) || player.overlapping(friend2)) {
-		if (!friendTalked) {
-			dialogueActive = true;
-			friendTalked = true;
-			dialogueLine = 0;
-		}
+	if (player.overlapping(friend)) {
+    if (!friendTalked) {
+        dialogueActive = true;
+        friendTalked = true;
+        dialogueLine = 0;
+        currentDialogue = friend0Lines;
+    }
+	} else if (player.overlapping(friend1)) {
+    if (!friend1Talked) {
+        dialogueActive = true;
+        friend1Talked = true;
+        dialogueLine = 0;
+        currentDialogue = friend1Lines;
+    }
+	} else if (player.overlapping(friend2)) {
+    if (!friend2Talked) {
+        dialogueActive = true;
+        friend2Talked = true;
+        dialogueLine = 0;
+        currentDialogue = friend2Lines;
+    }
 	} else {
-		friendTalked = false;
+    friendTalked = false;
+    friend1Talked = false;
+    friend2Talked = false;
 	}
 
 	// --- Water/lava drag (always applies) ---

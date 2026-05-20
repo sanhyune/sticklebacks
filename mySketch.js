@@ -1,7 +1,7 @@
 // https://p5play.org
 
-let player, friend, friend1, friend2, eagle, shark, groundSensor, grass, water, sausages;
-let grassImg, waterImg, sausagesImg, charactersImg;
+let player, friend, friend1, friend2, eagle, shark, fin, groundSensor, grass, water, sausages;
+let grassImg, waterImg, sausagesImg, charactersImg, finImg, lavaImg, eagleImg, sharkImg;
 let HP = 5;
 let sausage = 0;
 let dialogueActive = false;
@@ -40,11 +40,13 @@ let friendTalked = false;
 let friend1Talked = false;
 let friend2Talked = false;
 let eagleTalked = false;
+let finSpawned = false;
 
 function preload() {
 	grassImg = loadImage('grass.png');
 	waterImg = loadImage('water.png');
 	sausagesImg = loadImage('sausages.png');
+	finImg = loadImage('fin.png');
 	lavaImg = loadImage('spikke.png');
 	charactersImg = loadImage('sticklebacks.png');
 	eagleImg = loadImage('eagle.png');
@@ -93,8 +95,8 @@ function setup() {
 			'      ggg    c                  g                        cvv                          ccc',
 			'            ggg             g          g                 ggg                  ggg     ggg',
 			'                                                                              ',
-			'    c c c       c c                          ccc        c     c       cc      ',
-			'gggggggggggwwwwwggggg  gggggvvvvvvvvvvvvvggg  gggvvvvggggg     g       gggggggggggggvvvvvgggggggggggg'
+			'    c c c       c c                           ccc        c       c     cc      ',
+			'gggggggggggwwwwwggggg  gggggvvvvvvvvvvvvvggg  gggvvvvggggg       g     gggggggggggggvvvvvgggggggggggg'
 		],
 		8, 8, 16, 16
 	);
@@ -172,7 +174,7 @@ function setup() {
 	eagle.rotationLock = true;
 
 	shark = new Sprite(1600, 120, 32, 16);
-	shark.spriteSheet = sharkImg;
+	shark.img = sharkImg;
 	shark.rotationLock = true;
 
 	groundSensor = new Sprite(48, 106, 6, 12, 'n');
@@ -205,13 +207,13 @@ function drawDialogue() {
 	noStroke();
 	fill(255);
 	textAlign(LEFT);
-	textSize(11);
+	textSize(9);
 	textLeading(9);
 	text(currentDialogue[dialogueLine], bx + 8, by + 12, bw - 16, 40);
 
 	fill(200, 200, 100);
 	textAlign(RIGHT);
-	textSize(8);
+	textSize(9);
 	text('[ENTER] next', bx + bw - 6, by + bh - 5);
 	textAlign(CENTER);
 	textLeading(12);
@@ -317,6 +319,19 @@ function draw() {
 		player.x = 100;
 		player.y = 100;
 		HP--;
+	}
+
+		// Spawn fin when 25 sausages collected
+	if (sausage >= 25 && !finSpawned) {
+		finSpawned = true;
+		fin = new Sprite(1500, 100, 16, 16);
+		fin.layer = 1;
+		fin.anis.offset.y = 1;
+		fin.addAni('idle', { w: 16, h: 16, row: 0, col: 0, frames: 14 });
+		fin.spriteSheet = finImg;
+		fin.rotationLock = true;
+		fin.ani = 'idle';
+		fin.collider = 'static';
 	}
 
 	//if (sausage >= 20) gamewin();

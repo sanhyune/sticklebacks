@@ -184,8 +184,9 @@ function setup() {
 	shark = new Sprite(1600, 120, 32, 16);
 	shark.img = sharkImg;
 	shark.rotationLock = true;
-	shark.collider = 'static';  // add this
-	shark.vel.x = 0;   
+	shark.collider = 'kinematic'; // changed from static
+	shark.vel.x = 0;
+	shark.vel.y = 0;   
 
 	groundSensor = new Sprite(48, 106, 6, 12, 'n');
 	groundSensor.visible = false;
@@ -298,12 +299,17 @@ function draw() {
 	camera.x = player.x + 52;
 
 	if (gameState === 'win') {
-        background('black');
-        textAlign(CENTER);
-        fill(255);
-        textSize(10);
-        text('YOU HAVE WON! / SAUSAGES COLLECTED: ' + sausage, 150, 80);
-        player.speed = 0;
+		push();
+		resetMatrix();
+		let s = Math.round(width / 300);
+		scale(s);
+		background('black');
+		textAlign(CENTER);
+		fill(255);
+		textSize(10);
+		text('YOU HAVE WON! / SAUSAGES COLLECTED: ' + sausage, 150, 80);
+		pop();
+		player.speed = 0;
 		water.visible = false;
 		sausages.visible = false;
 		grass.visible = false;
@@ -313,16 +319,20 @@ function draw() {
 		friend2.visible = false;
 		eagle.visible = false;
 		shark.visible = false;
-        camera.x = player.x;
-        return; // stop rest of draw
-    }
-    if (gameState === 'lose') {
-        background('black');
-        textAlign(CENTER);
-        fill(255);
-        textSize(10);
-        text('GAME OVER / SAUSAGES COLLECTED: ' + sausage, 150, 80);
-        player.speed = 0;
+		return;
+	}
+	if (gameState === 'lose') {
+		push();
+		resetMatrix();
+		let s = Math.round(width / 300);
+		scale(s);
+		background('black');
+		textAlign(CENTER);
+		fill(255);
+		textSize(10);
+		text('GAME OVER / SAUSAGES COLLECTED: ' + sausage, 150, 80);
+		pop();
+		player.speed = 0;
 		water.visible = false;
 		sausages.visible = false;
 		grass.visible = false;
@@ -332,10 +342,9 @@ function draw() {
 		friend2.visible = false;
 		eagle.visible = false;
 		shark.visible = false;
-        camera.x = player.x;
-        return; // stop rest of draw
-    }
-	
+		return;
+	}
+
 	let nearFriend = null;
 	if (player.overlapping(friend)) nearFriend = 'friend';
 	else if (player.overlapping(friend1)) nearFriend = 'friend1';

@@ -172,11 +172,11 @@ function setup() {
 	});
 	friend2.ani = 'idle';
 	friend2.rotationLock = true;
-
-	eagle = new Sprite(700, 100);
-	eagle.img = eagleImg;
+	
+	eagle = new Sprite(700, 100, 16, 16);
 	eagle.spriteSheet = eagleImg;
-	eagle.addAni({ w: 16, h: 16, row: 0, frames: 12 });
+	eagle.addAni('idle', { w: 16, h: 16, row: 0, frames: 12 });
+	eagle.ani = 'idle';
 	eagle.rotationLock = true;
 
 	/*shark = new Sprite(300, 130);
@@ -367,7 +367,7 @@ function draw() {
 		friend.visible = false;
 		friend1.visible = false;
 		friend2.visible = false;
-		shark.visible = false;
+		/*shark.visible = false;*/
 		eagle.visible = false;
 		camera.x = player.x;
 	}

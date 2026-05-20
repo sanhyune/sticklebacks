@@ -201,7 +201,7 @@ function collectSausage(player, sausages) {
 
 function drawDialogue() {
 	// Position box near bottom of screen, always in screen coords
- let bx = 10, by = 105, bw = 280, bh = 45; // change bh to 55 or 60
+	let bx = 10, by = 105, bw = 280, bh = 45; // change bh to 55 or 60
 	// Semi-transparent dark box
 	noStroke();
 	fill(0, 0, 0, 180);

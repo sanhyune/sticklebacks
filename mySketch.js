@@ -215,13 +215,13 @@ function drawDialogue() {
 	noStroke();
 	fill(255);
 	textAlign(LEFT);
-	textSize(9);
-	textLeading(9);
+	textSize(8);
+	textLeading(8);
 	text(currentDialogue[dialogueLine], bx + 8, by + 12, bw - 16, 40);
 
 	fill(200, 200, 100);
 	textAlign(RIGHT);
-	textSize(9);
+	textSize(8);
 	text('[ENTER] next', bx + bw - 6, by + bh - 5);
 	textAlign(CENTER);
 	textLeading(12);
@@ -339,6 +339,7 @@ function draw() {
 	if (finSpawned && player.overlapping(shark) && !sharkTalked) {
     sharkTalked = true;
     sharkTalking = true;
+    dialogueActive = true;  // this line was missing
     dialogueLine = 0;
     if (finCollected) {
         currentDialogue = sharkWinLines;
@@ -352,15 +353,16 @@ function draw() {
 if (HP <= 0) gameover();
 
 		// Spawn fin when 25 sausages collected
+	// Spawn fin when 25 sausages collected
 	if (sausage >= 25 && !finSpawned) {
 		finSpawned = true;
 		fin = new Sprite(1500, 100, 16, 16);
 		fin.layer = 1;
 		fin.spriteSheet = finImg;
-		fin.anis.w = 16;
-		fin.anis.h = 16;
+		fin.anis.w = 128;
+		fin.anis.h = 128;
 		fin.anis.frameDelay = 8;
-		fin.addAni('idle', { w: 16, h: 16, row: 0, col: 0, frames: 14 });
+		fin.addAni('idle', { w: 128, h: 128, row: 0, col: 0, frames: 14 });
 		fin.ani = 'idle';
 		fin.rotationLock = true;
 		fin.collider = 'static';

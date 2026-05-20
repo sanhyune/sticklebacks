@@ -56,19 +56,41 @@ function setup() {
 	new Canvas(300, 160, 'pixelated');
 	world.gravity.y = 10;
 	allSprites.pixelPerfect = true;
+	allSprites.autoDraw = false;
 
 
-	/*/ Scale the canvas to fill the window with CSS
-	let cnv = document.querySelector('canvas');
-	cnv.style.width = '100vw';
-	cnv.style.height = '100vh';
-	cnv.style.objectFit = 'contain';
-	cnv.style.imageRendering = 'pixelated';
-	cnv.style.display = 'block';
-	cnv.style.margin = '0 auto';
-	document.body.style.margin = '0';
-	document.body.style.background = 'black';
-	document.body.style.overflow = 'hidden';*/
+function draw() {
+	background('skyblue');
+	camera.x = player.x + 52;
+
+	allSprites.draw(); // draw world sprites
+
+	// --- HUD + dialogue in screen space (drawn AFTER sprites) ---
+	push();
+	resetMatrix();
+	let s = Math.round(width / 300);
+	scale(s);
+
+	fill(255);
+	noStroke();
+	textSize(10);
+	textAlign(LEFT);
+	text('Sausage: ' + sausage, 10, 25);
+	text('HP: ' + HP, 10, 13);
+
+	if (!dialogueActive) {
+		if (nearFriend === 'friend')  drawPrompt(friend);
+		if (nearFriend === 'friend1') drawPrompt(friend1);
+		if (nearFriend === 'friend2') drawPrompt(friend2);
+		if (nearFriend === 'eagle')   drawPrompt(eagle);
+	}
+
+	if (dialogueActive) drawDialogue();
+
+	pop();
+
+	// physics still updates automatically
+}
 
 	grass = new Group();
 	grass.layer = 0;

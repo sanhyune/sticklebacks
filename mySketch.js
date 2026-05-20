@@ -175,15 +175,11 @@ function setup() {
 
 	eagle = new Sprite(700, 100);
 	eagle.ani = eagleImg;
-	eagle.anis.w = 16;
-	eagle.anis.h = 16;
 	eagle.rotationLock = true;
-	eagle.anis.offset.y = 1;
 
 	shark = new Sprite(300, 130);
 	shark.ani = sharkImg;
 	shark.rotationLock = true;
-	shark.anis.offset.y = 1;
 
 	groundSensor = new Sprite(48, 106, 6, 12, 'n');
 	groundSensor.visible = false;

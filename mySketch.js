@@ -126,7 +126,7 @@ function setup() {
 	friend1.anis.frameDelay = 8;
 	friend1.spriteSheet = charactersImg;
 	friend1.addAnis({
-		idle:      { row: 1, frames: 4 },
+		idle:      { row: 2, frames: 4 },
 		knockback: { row: 0, frames: 1 },
 		run:       { row: 0, frames: 4 },
 		jump:      { row: 1, col: 3, frames: 2 }
@@ -142,7 +142,7 @@ function setup() {
 	friend2.anis.frameDelay = 8;
 	friend2.spriteSheet = charactersImg;
 	friend2.addAnis({
-		idle:      { row: 2, frames: 4 },
+		idle:      { row: 3, frames: 4 },
 		knockback: { row: 0, frames: 1 },
 		run:       { row: 0, frames: 4 },
 		jump:      { row: 1, col: 3, frames: 2 }

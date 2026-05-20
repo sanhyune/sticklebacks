@@ -134,7 +134,7 @@ function setup() {
 	friend1.ani = 'idle';
 	friend1.rotationLock = true;
 
-	friend2 = new Sprite(700, 100, 12, 12);
+	friend2 = new Sprite(632, 100, 12, 12);
 	friend2.layer = 1;
 	friend2.anis.w = 16;
 	friend2.anis.h = 16;

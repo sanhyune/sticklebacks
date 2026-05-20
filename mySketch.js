@@ -8,7 +8,7 @@ let dialogueActive = false;
 let dialogueLine = 0;
 let currentDialogue = [];
 
-let friend0Lines = [
+let friendLines = [
   "Hey! You found me!",
   "Watch out for the spike ahead...",
   "Collect all the sausages to win!",
@@ -91,10 +91,10 @@ function setup() {
 			'gg                                     g',
 			' ',
 			'   gg',
-			'       c                        c  g',
+			'       c                        c  g                            g',
 			'      ggg    c                  g',
-			'            ggg             g          g      ',
-			'                                              ',
+			'            ggg             g          g                   cvvvvv',
+			'                                                           gggggg',
 			'     c c c       c c                          ccc                       cccccccccccccccccccccccc',
 			'gggggggggggwwwwwggggg  gggggvvvvvvvvvvvvvggg  gggvvvvgggggggggggggggggggggggggggggggggggggggggggggggggggggggg'
 		],

@@ -47,7 +47,6 @@ function preload() {
 	sausagesImg = loadImage('sausages.png');
 	lavaImg = loadImage('spikke.png');
 	charactersImg = loadImage('sticklebacks.png');
-	// sharkImg = loadImage('shark.gif')
 	eagleImg = loadImage('eagle.png');
 }
 
@@ -57,40 +56,6 @@ function setup() {
 	world.gravity.y = 10;
 	allSprites.pixelPerfect = true;
 	allSprites.autoDraw = false;
-
-
-function draw() {
-	background('skyblue');
-	camera.x = player.x + 52;
-
-	allSprites.draw(); // draw world sprites
-
-	// --- HUD + dialogue in screen space (drawn AFTER sprites) ---
-	push();
-	resetMatrix();
-	let s = Math.round(width / 300);
-	scale(s);
-
-	fill(255);
-	noStroke();
-	textSize(10);
-	textAlign(LEFT);
-	text('Sausage: ' + sausage, 10, 25);
-	text('HP: ' + HP, 10, 13);
-
-	if (!dialogueActive) {
-		if (nearFriend === 'friend')  drawPrompt(friend);
-		if (nearFriend === 'friend1') drawPrompt(friend1);
-		if (nearFriend === 'friend2') drawPrompt(friend2);
-		if (nearFriend === 'eagle')   drawPrompt(eagle);
-	}
-
-	if (dialogueActive) drawDialogue();
-
-	pop();
-
-	// physics still updates automatically
-}
 
 	grass = new Group();
 	grass.layer = 0;
@@ -222,7 +187,7 @@ function collectSausage(player, sausages) {
 }
 
 function drawDialogue() {
-	let bx = Math.round(10), by = Math.round(105), bw = 280, bh = 55;
+	let bx = 10, by = 100, bw = 280, bh = 55;
 
 	noStroke();
 	fill(0, 0, 0, 180);
@@ -246,74 +211,70 @@ function drawDialogue() {
 	textAlign(CENTER);
 }
 
+function drawPrompt(targetSprite) {
+	let sx = (targetSprite.x - camera.x) + width / 2;
+	let sy = (targetSprite.y - camera.y) + height / 2 - 14;
+	fill(255, 255, 100);
+	noStroke();
+	textAlign(CENTER);
+	textSize(8);
+	text('[E]', sx, sy);
+}
+
 function keyPressed() {
-    // Start dialogue with E when near a friend
-    if (key === 'e' || key === 'E') {
-        if (!dialogueActive) {
-            if (player.overlapping(friend) && !friendTalked) {
-                dialogueActive = true;
-                friendTalked = true;
-                dialogueLine = 0;
-                currentDialogue = friendLines;
-            } else if (player.overlapping(friend1) && !friend1Talked) {
-                dialogueActive = true;
-                friend1Talked = true;
-                dialogueLine = 0;
-                currentDialogue = friend1Lines;
-            } else if (player.overlapping(friend2) && !friend2Talked) {
-                dialogueActive = true;
-                friend2Talked = true;
-                dialogueLine = 0;
-                currentDialogue = friend2Lines;
-            } else if (player.overlapping(eagle) && !eagleTalked) {
+	if (key === 'e' || key === 'E') {
+		if (!dialogueActive) {
+			if (player.overlapping(friend) && !friendTalked) {
+				dialogueActive = true;
+				friendTalked = true;
+				dialogueLine = 0;
+				currentDialogue = friendLines;
+			} else if (player.overlapping(friend1) && !friend1Talked) {
+				dialogueActive = true;
+				friend1Talked = true;
+				dialogueLine = 0;
+				currentDialogue = friend1Lines;
+			} else if (player.overlapping(friend2) && !friend2Talked) {
+				dialogueActive = true;
+				friend2Talked = true;
+				dialogueLine = 0;
+				currentDialogue = friend2Lines;
+			} else if (player.overlapping(eagle) && !eagleTalked) {
 				dialogueActive = true;
 				eagleTalked = true;
 				dialogueLine = 0;
 				currentDialogue = eagleLines;
-        	}
-   		}
+			}
+		}
 	}
-    // Advance dialogue with Enter
-    if (key === 'Enter' && dialogueActive) {
-        dialogueLine++;
-        if (dialogueLine >= currentDialogue.length) {
-            dialogueActive = false;
-            dialogueLine = 0;
-        }
-    }
-}
-
-function drawPrompt(targetSprite) {
-    // Convert world position to screen position
-    let sx = (targetSprite.x - camera.x) + width / 2;
-    let sy = (targetSprite.y - camera.y) + height / 2 - 14;
-    fill(255, 255, 100);
-    noStroke();
-    textAlign(CENTER);
-    textSize(8);
-    text('[E]', sx, sy);
+	if (key === 'Enter' && dialogueActive) {
+		dialogueLine++;
+		if (dialogueLine >= currentDialogue.length) {
+			dialogueActive = false;
+			dialogueLine = 0;
+		}
+	}
 }
 
 function draw() {
 	background('skyblue');
-		camera.x = player.x + 52;
+	camera.x = player.x + 52;
 
 	// --- Dialogue trigger ---
-	// --- Show "press E" prompt and trigger dialogue on E ---
 	let nearFriend = null;
-		if (player.overlapping(friend)) nearFriend = 'friend';
-		else if (player.overlapping(friend1)) nearFriend = 'friend1';
-		else if (player.overlapping(friend2)) nearFriend = 'friend2';
-		else if (player.overlapping(eagle)) nearFriend = 'eagle';
+	if (player.overlapping(friend)) nearFriend = 'friend';
+	else if (player.overlapping(friend1)) nearFriend = 'friend1';
+	else if (player.overlapping(friend2)) nearFriend = 'friend2';
+	else if (player.overlapping(eagle)) nearFriend = 'eagle';
 
-		if (!nearFriend) {
-   		friendTalked = false;
-    	friend1Talked = false;
-    	friend2Talked = false;
+	if (!nearFriend) {
+		friendTalked = false;
+		friend1Talked = false;
+		friend2Talked = false;
 		eagleTalked = false;
 	}
 
-	// --- Water/lava drag (always applies) ---
+	// --- Water/lava drag ---
 	if (groundSensor.overlapping(water)) {
 		player.drag = 20;
 		player.friction = 35;
@@ -322,11 +283,10 @@ function draw() {
 		player.friction = 0;
 	}
 
-	// --- Movement: fully blocked during dialogue ---
+	// --- Movement ---
 	if (dialogueActive) {
-		// Hard stop the player
 		player.vel.x = 0;
-		player.vel.y = Math.max(player.vel.y, 0); // still allow gravity
+		player.vel.y = Math.max(player.vel.y, 0);
 		player.ani = 'idle';
 	} else {
 		if (groundSensor.overlapping(grass) || groundSensor.overlapping(water)) {
@@ -335,7 +295,6 @@ function draw() {
 				player.vel.y = -4.5;
 			}
 		}
-
 		if (kb.pressing('left')) {
 			player.ani = 'run';
 			player.vel.x = -1.5;
@@ -394,14 +353,13 @@ function draw() {
 		camera.x = player.x;
 	}
 
-	/*let borderx = -300
-	if (camera.x < 150) camera.x = 150;
-	if (camera.x > borderx) camera.x = borderx;*/
+	// --- Draw sprites first ---
+	allSprites.draw();
 
-	// --- HUD + dialogue in screen space ---
+	// --- HUD + dialogue on top in screen space ---
 	push();
 	resetMatrix();
-	let s = Math.round(width / 300); // round to whole number scale
+	let s = Math.round(width / 300);
 	scale(s);
 
 	fill(255);
@@ -411,12 +369,11 @@ function draw() {
 	text('Sausage: ' + sausage, 10, 25);
 	text('HP: ' + HP, 10, 13);
 
-	// Show [E] prompt above nearby friend
 	if (!dialogueActive) {
 		if (nearFriend === 'friend')  drawPrompt(friend);
 		if (nearFriend === 'friend1') drawPrompt(friend1);
 		if (nearFriend === 'friend2') drawPrompt(friend2);
-		if (nearFriend === 'eagle') drawPrompt(eagle);
+		if (nearFriend === 'eagle')   drawPrompt(eagle);
 	}
 
 	if (dialogueActive) drawDialogue();

@@ -86,14 +86,14 @@ function setup() {
 		[
 			'cc',
 			'gg                                     g',
-			'                                            vv  ccc',
-			'   gg                                    ggggg  ggg',
-			'       c                        c  g                 ggg',
-			'      ggg    c                  g            cvv',
-			'            ggg             g      g         ggg         ggg',
-			'                                                             ',
-			'     c c c       c c                   ccc   c         cccccccccccccc',
-			'gggggggggggwwwwwggggg  gggggvvvvvvvggg  gggvvvvggggg   ggggggggggggggggggggg'
+			'                                                               vv  ccc',
+			'   gg                                                       ggggg  ggg',
+			'       c                        c  g                                     ggg',
+			'      ggg    c                  g                        cvv                          ccc',
+			'            ggg             g          g                 ggg                  ggg     ggg',
+			'                                                                              ',
+			'     c c c       c c                          ccc        c             cc      ',
+			'gggggggggggwwwwwggggg  gggggvvvvvvvvvvvvvggg  gggvvvvggggg             gggggggggggggvvvvvgggggggggggg'
 		],
 		8, 8, 16, 16
 	);
@@ -200,12 +200,12 @@ function drawDialogue() {
 	noStroke();
 	fill(255);
 	textAlign(LEFT);
-	textSize(8);
+	textSize(10);
 	text(currentDialogue[dialogueLine], bx + 8, by + 14, bw - 16, bh - 20);
 
 	fill(200, 200, 100);
 	textAlign(RIGHT);
-	textSize(7);
+	textSize(8);
 	text('[ENTER] next', bx + bw - 6, by + bh - 5);
 	textAlign(CENTER);
 }

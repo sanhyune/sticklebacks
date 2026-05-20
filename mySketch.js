@@ -86,7 +86,7 @@ function setup() {
 		[
 			'cc',
 			'gg                                     g',
-			'                                                               vv  ccc',
+			'                                                               vv  c c',
 			'   gg                                                       ggggg  ggg',
 			'       c                        c  g                                     ggg',
 			'      ggg    c                  g                        cvv                          ccc',
@@ -148,7 +148,7 @@ function setup() {
 	friend1.ani = 'idle';
 	friend1.rotationLock = true;
 
-	friend2 = new Sprite(900, 100, 12, 12);
+	friend2 = new Sprite(1100, 30, 12, 12);
 	friend2.layer = 1;
 	friend2.anis.w = 16;
 	friend2.anis.h = 16;
@@ -186,10 +186,10 @@ function collectSausage(player, sausages) {
 }
 
 function drawDialogue() {
-	let bx = 10, by = 100, bw = 280, bh = 55;
+	let bx = 10, by = 85, bw = 280, bh = 70;
 
 	noStroke();
-	fill(0, 0, 0, 180);
+	fill(0, 0, 0, 200);
 	rect(bx, by, bw, bh, 4);
 
 	stroke(255);
@@ -200,14 +200,16 @@ function drawDialogue() {
 	noStroke();
 	fill(255);
 	textAlign(LEFT);
-	textSize(10);
-	text(currentDialogue[dialogueLine], bx + 8, by + 14, bw - 16, bh - 20);
+	textSize(11);
+	textLeading(9);
+	text(currentDialogue[dialogueLine], bx + 8, by + 12, bw - 16, 40);
 
 	fill(200, 200, 100);
 	textAlign(RIGHT);
 	textSize(8);
 	text('[ENTER] next', bx + bw - 6, by + bh - 5);
 	textAlign(CENTER);
+	textLeading(12);
 }
 
 function drawPrompt(targetSprite) {

@@ -43,7 +43,7 @@ function preload() {
 	lavaImg = loadImage('spikke.png');
 	charactersImg = loadImage('sticklebacks.png');
 	sharkImg = loadImage('shark.gif')
-	eagleImg = loadImage('neweagle.gif');
+	eagleImg = loadImage('eagle.png');
 }
 
 function setup() {
@@ -174,11 +174,13 @@ function setup() {
 	friend2.rotationLock = true;
 
 	eagle = new Sprite(700, 100);
-	eagle.ani = eagleImg;
+	eagle.img = eagleImg;
+	eagle.spriteSheet = eagleImg;
+	sausages.addAni({ w: 16, h: 16, row: 0, frames: 12 });
 	eagle.rotationLock = true;
 
 	shark = new Sprite(300, 130);
-	shark.ani = sharkImg;
+	shark.img = sharkImg;
 	shark.rotationLock = true;
 
 	groundSensor = new Sprite(48, 106, 6, 12, 'n');
@@ -390,7 +392,7 @@ function draw() {
 	textAlign(LEFT);
 	text('Sausage: ' + sausage, 10, 25);
 	text('HP: ' + HP, 10, 13);
-	text('38',10, 37);
+	text('42',10, 37);
 
 	// Show [E] prompt above nearby friend
 	if (!dialogueActive) {

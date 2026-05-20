@@ -309,7 +309,7 @@ function draw() {
 		player.vel.y = Math.max(player.vel.y, 0); // still allow gravity
 		player.ani = 'idle';
 	} else {
-		if (groundSensor.overlapping(grass) || groundSensor.overlapping(water) || groundSensor.overlapping(shark)) {
+		if (groundSensor.overlapping(grass) || groundSensor.overlapping(water)) {
 			if (kb.presses('up') || kb.presses('space')) {
 				player.ani = 'jump';
 				player.vel.y = -4.5;

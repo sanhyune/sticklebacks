@@ -374,6 +374,7 @@ function draw() {
 	textAlign(LEFT);
 	text('Sausage: ' + sausage, 10, 25);
 	text('HP: ' + HP, 10, 13);
+	text('38',10, 37);
 
 	// Show [E] prompt above nearby friend
 	if (!dialogueActive) {

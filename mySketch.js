@@ -89,14 +89,14 @@ function setup() {
 		[
 			'cc',
 			'gg                                     g',
-			' ',
-			'   gg                                                         vvv',
-			'       c                        c  g                        ggggg     ggg',
-			'      ggg    c                  g',
-			'            ggg             g          g                 cvv',
-			'                                                         ggg',
-			'     c c c       c c                          ccc                       cccccccccccccccccccccccc',
-			'gggggggggggwwwwwggggg  gggggvvvvvvvvvvvvvggg  gggvvvvgggggggggggggggggggggggggggggggggggggggggggggggggggggggg'
+			'                                                               vv  ccc',
+			'   gg                                                       ggggg  ggg',
+			'       c                        c  g                                     ggg',
+			'      ggg    c                  g                        cvv',
+			'            ggg             g          g                 ggg                  ggg',
+			'                                                                              ',
+			'     c c c       c c                          ccc        c               cccccccccccccccccccccccc',
+			'gggggggggggwwwwwggggg  gggggvvvvvvvvvvvvvggg  gggvvvvggggg             ggggggggggggggggggggggggggggggggggg'
 		],
 		8, 8, 16, 16
 	);
@@ -151,7 +151,7 @@ function setup() {
 	friend1.ani = 'idle';
 	friend1.rotationLock = true;
 
-	friend2 = new Sprite(632, 100, 12, 12);
+	friend2 = new Sprite(1200, 100, 12, 12);
 	friend2.layer = 1;
 	friend2.anis.w = 16;
 	friend2.anis.h = 16;

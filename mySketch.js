@@ -182,6 +182,8 @@ function setup() {
 	shark = new Sprite(1600, 120, 32, 16);
 	shark.img = sharkImg;
 	shark.rotationLock = true;
+	shark.collider = 'static';  // add this
+	shark.vel.x = 0;   
 
 	groundSensor = new Sprite(48, 106, 6, 12, 'n');
 	groundSensor.visible = false;
@@ -199,7 +201,7 @@ function collectSausage(player, sausages) {
 }
 
 function drawDialogue() {
-	let bx = 100, by = 15, bw = 170, bh = 60;
+	let bx = 110, by = 15, bw = 180, bh = 60;
 
 	noStroke();
 	fill(0, 0, 0, 200);
@@ -301,7 +303,7 @@ function draw() {
 		player.friction = 0;
 	}
 
-	if (dialogueActive) {
+	if (dialogueActive || sharkTalking) {
 		player.vel.x = 0;
 		player.vel.y = Math.max(player.vel.y, 0);
 		player.ani = 'idle';
@@ -355,10 +357,10 @@ if (HP <= 0) gameover();
 		fin = new Sprite(1500, 100, 16, 16);
 		fin.layer = 1;
 		fin.spriteSheet = finImg;
-		fin.anis.w = 128;
-		fin.anis.h = 128;
+		fin.anis.w = 16;
+		fin.anis.h = 16;
 		fin.anis.frameDelay = 8;
-		fin.addAni('idle', { w: 128, h: 128, row: 0, col: 0, frames: 14 });
+		fin.addAni('idle', { w: 16, h: 16, row: 0, col: 0, frames: 14 });
 		fin.ani = 'idle';
 		fin.rotationLock = true;
 		fin.collider = 'static';

@@ -1,6 +1,6 @@
 // https://p5play.org
 
-let player, friend, friend1, friend2, eagle, groundSensor, grass, water, sausages;
+let player, friend, friend1, friend2, eagle, shark, groundSensor, grass, water, sausages;
 let grassImg, waterImg, sausagesImg, charactersImg;
 let HP = 5;
 let sausage = 0;
@@ -48,6 +48,7 @@ function preload() {
 	lavaImg = loadImage('spikke.png');
 	charactersImg = loadImage('sticklebacks.png');
 	eagleImg = loadImage('eagle.png');
+	sharkImg = loadImage('shark.gif');
 }
 
 function setup() {
@@ -84,16 +85,16 @@ function setup() {
 
 	new Tiles(
 		[
-			'cc',
+			'cc                                     c',
 			'gg                                     g',
-			'                                                               vv  c c',
+			'                                                            c  vv  c c',
 			'   gg                                                       ggggg  ggg',
 			'       c                        c  g                                     ggg',
 			'      ggg    c                  g                        cvv                          ccc',
 			'            ggg             g          g                 ggg                  ggg     ggg',
 			'                                                                              ',
-			'     c c c       c c                          ccc        c             cc      ',
-			'gggggggggggwwwwwggggg  gggggvvvvvvvvvvvvvggg  gggvvvvggggg             gggggggggggggvvvvvgggggggggggg'
+			'    c c c       c c                          ccc        c     c       cc      ',
+			'gggggggggggwwwwwggggg  gggggvvvvvvvvvvvvvggg  gggvvvvggggg     g       gggggggggggggvvvvvgggggggggggg'
 		],
 		8, 8, 16, 16
 	);
@@ -170,6 +171,10 @@ function setup() {
 	eagle.ani = 'idle';
 	eagle.rotationLock = true;
 
+	shark = new Sprite(1600, 120, 32, 16);
+	shark.spriteSheet = sharkImg;
+	shark.rotationLock = true;
+
 	groundSensor = new Sprite(48, 106, 6, 12, 'n');
 	groundSensor.visible = false;
 	groundSensor.mass = 0.01;
@@ -186,7 +191,7 @@ function collectSausage(player, sausages) {
 }
 
 function drawDialogue() {
-	let bx = 10, by = 85, bw = 280, bh = 70;
+	let bx = 90, by = 25, bw = 200, bh = 60;
 
 	noStroke();
 	fill(0, 0, 0, 200);
@@ -314,7 +319,7 @@ function draw() {
 		HP--;
 	}
 
-	if (sausage >= 20) gamewin();
+	//if (sausage >= 20) gamewin();
 	if (HP <= 0) gameover();
 
 	function gamewin() {

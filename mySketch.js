@@ -200,31 +200,28 @@ function collectSausage(player, sausages) {
 }
 
 function drawDialogue() {
-	// Position box near bottom of screen, always in screen coords
-	let bx = 10, by = 105, bw = 280, bh = 45; // change bh to 55 or 60
-	// Semi-transparent dark box
+	let bx = Math.round(10), by = Math.round(105), bw = 280, bh = 55;
+
 	noStroke();
 	fill(0, 0, 0, 180);
 	rect(bx, by, bw, bh, 4);
 
-	// White border
 	stroke(255);
 	strokeWeight(1);
 	noFill();
 	rect(bx, by, bw, bh, 4);
 
-	// Dialogue text
 	noStroke();
 	fill(255);
 	textAlign(LEFT);
-	textSize(9);
-	text(currentDialogue[dialogueLine], bx + 8, by + 14, bw - 16, bh - 10);
+	textSize(8);
+	text(currentDialogue[dialogueLine], bx + 8, by + 14, bw - 16, bh - 20);
 
-	// "Press Z" prompt
-	textAlign(RIGHT);
 	fill(200, 200, 100);
+	textAlign(RIGHT);
+	textSize(7);
 	text('[ENTER] next', bx + bw - 6, by + bh - 5);
-	textAlign(CENTER); // reset
+	textAlign(CENTER);
 }
 
 function keyPressed() {
@@ -382,16 +379,15 @@ function draw() {
 	// --- HUD + dialogue in screen space ---
 	push();
 	resetMatrix();
-	let s = width / 300;
+	let s = Math.round(width / 300); // round to whole number scale
 	scale(s);
 
 	fill(255);
 	noStroke();
-	textSize(11);
+	textSize(10);
 	textAlign(LEFT);
 	text('Sausage: ' + sausage, 10, 25);
 	text('HP: ' + HP, 10, 13);
-	text('51',10, 37);
 
 	// Show [E] prompt above nearby friend
 	if (!dialogueActive) {

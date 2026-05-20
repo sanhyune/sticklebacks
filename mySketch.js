@@ -12,6 +12,7 @@ let sharkLoseLines = ["You don't have a spine!"];
 let sharkTalking = false;
 let pendingOutcome = null; // 'win' or 'lose'
 let sharkTalked = false;
+let gameState = 'playing'; // 'playing', 'win', 'lose'
 
 let friendLines = [
   "Hi! I'm a stickleback fish.",
@@ -47,6 +48,7 @@ let friend2Talked = false;
 let eagleTalked = false;
 let finSpawned = false;
 let finCollected = false;
+
 
 function preload() {
 	grassImg = loadImage('grass.png');
@@ -284,26 +286,24 @@ function keyPressed() {
 	}
 
 	function gamewin() {
-		background('black');
-		textAlign(CENTER);
-		fill(255);
-		textSize(10);
-		text('YOU HAVE WON! / SAUSAGES COLLECTED: ' + sausage, 150, 80);
-		player.speed = 0;
-		water.visible = false;
-		sausages.visible = false;
-		grass.visible = false;
-		lava.visible = false;
-		camera.x = player.x;
-	}
+    gameState = 'win';
+}
 
 	function gameover() {
-		background('black');
-		textAlign(CENTER);
-		fill(255);
-		textSize(10);
-		text('GAME OVER / SAUSAGES COLLECTED: ' + sausage, 150, 80);
-		player.speed = 0;
+    gameState = 'lose';
+	}
+
+function draw() {
+	background('skyblue');
+	camera.x = player.x + 52;
+
+	if (gameState === 'win') {
+        background('black');
+        textAlign(CENTER);
+        fill(255);
+        textSize(10);
+        text('YOU HAVE WON! / SAUSAGES COLLECTED: ' + sausage, 150, 80);
+        player.speed = 0;
 		water.visible = false;
 		sausages.visible = false;
 		grass.visible = false;
@@ -312,13 +312,30 @@ function keyPressed() {
 		friend1.visible = false;
 		friend2.visible = false;
 		eagle.visible = false;
-		camera.x = player.x;
-	}
-
-function draw() {
-	background('skyblue');
-	camera.x = player.x + 52;
-
+		shark.visible = false;
+        camera.x = player.x;
+        return; // stop rest of draw
+    }
+    if (gameState === 'lose') {
+        background('black');
+        textAlign(CENTER);
+        fill(255);
+        textSize(10);
+        text('GAME OVER / SAUSAGES COLLECTED: ' + sausage, 150, 80);
+        player.speed = 0;
+		water.visible = false;
+		sausages.visible = false;
+		grass.visible = false;
+		lava.visible = false;
+		friend.visible = false;
+		friend1.visible = false;
+		friend2.visible = false;
+		eagle.visible = false;
+		shark.visible = false;
+        camera.x = player.x;
+        return; // stop rest of draw
+    }
+	
 	let nearFriend = null;
 	if (player.overlapping(friend)) nearFriend = 'friend';
 	else if (player.overlapping(friend1)) nearFriend = 'friend1';

@@ -218,7 +218,7 @@ function drawDialogue() {
 	noStroke();
 	fill(255);
 	textAlign(LEFT);
-	textSize(8);
+	textSize(8.5);
 	textLeading(8);
 	text(currentDialogue[dialogueLine], bx + 8, by + 12, bw - 16, 40);
 

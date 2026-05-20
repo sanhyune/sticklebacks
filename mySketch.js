@@ -235,7 +235,7 @@ function draw() {
         dialogueActive = true;
         friendTalked = true;
         dialogueLine = 0;
-        currentDialogue = friend0Lines;
+        currentDialogue = friendLines;
     }
 	} else if (player.overlapping(friend1)) {
     if (!friend1Talked) {

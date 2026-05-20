@@ -2,7 +2,7 @@
 
 let player, friend, friend1, friend2, shark, groundSensor, grass, water, sausages;
 let grassImg, waterImg, sausagesImg, charactersImg;
-let HP = 3;
+let HP = 5;
 let sausage = 0;
 let dialogueActive = false;
 let dialogueLine = 0;
@@ -206,7 +206,7 @@ function drawDialogue() {
 	noStroke();
 	fill(255);
 	textAlign(LEFT);
-	textSize(10);
+	textSize(8);
 	text(currentDialogue[dialogueLine], bx + 8, by + 14, bw - 16, bh - 10);
 
 	// "Press Z" prompt
@@ -350,6 +350,10 @@ function draw() {
 		sausages.visible = false;
 		grass.visible = false;
 		lava.visible = false;
+		friend.visible = false;
+		friend1.visible = false;
+		friend2.visible = false;
+		shark.visible = false;
 		camera.x = player.x;
 	}
 

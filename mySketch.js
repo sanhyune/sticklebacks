@@ -7,6 +7,11 @@ let sausage = 0;
 let dialogueActive = false;
 let dialogueLine = 0;
 let currentDialogue = [];
+let sharkWinLines = ["No!!! You have a spine!!"];
+let sharkLoseLines = ["You don't have a spine!"];
+let sharkTalking = false;
+let pendingOutcome = null; // 'win' or 'lose'
+let sharkTalked = false;
 
 let friendLines = [
   "Hi! I'm a stickleback fish.",
@@ -257,12 +262,18 @@ function keyPressed() {
 		}
 	}
 	if (key === 'Enter' && dialogueActive) {
-		dialogueLine++;
-		if (dialogueLine >= currentDialogue.length) {
-			dialogueActive = false;
-			dialogueLine = 0;
-		}
-	}
+    dialogueLine++;
+    if (dialogueLine >= currentDialogue.length) {
+        dialogueActive = false;
+        dialogueLine = 0;
+        if (sharkTalking) {
+            sharkTalking = false;
+            if (pendingOutcome === 'win') gamewin();
+            if (pendingOutcome === 'lose') gameover();
+            pendingOutcome = null;
+        }
+    }
+}
 }
 
 function draw() {
@@ -323,13 +334,18 @@ function draw() {
 }
 
 // Shark interaction
-	if (finSpawned && player.overlapping(shark)) {
-		if (finCollected) {
-			gamewin();
-		} else {
-			gameover();
-		}
-	}
+	if (finSpawned && player.overlapping(shark) && !sharkTalked) {
+    sharkTalked = true;
+    sharkTalking = true;
+    dialogueLine = 0;
+    if (finCollected) {
+        currentDialogue = sharkWinLines;
+        pendingOutcome = 'win';
+    } else {
+        currentDialogue = sharkLoseLines;
+        pendingOutcome = 'lose';
+    }
+}
 
 if (HP <= 0) gameover();
 

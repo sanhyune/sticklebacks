@@ -1,6 +1,6 @@
 // https://p5play.org
 
-let player, friend, friend1, friend2, shark, groundSensor, grass, water, sausages;
+let player, friend, friend1, friend2, eagle, shark, groundSensor, grass, water, sausages;
 let grassImg, waterImg, sausagesImg, charactersImg;
 let HP = 5;
 let sausage = 0;
@@ -10,8 +10,8 @@ let currentDialogue = [];
 
 let friendLines = [
   "Hey! You found me!",
-  "Watch out for the spike ahead...",
-  "Collect all the sausages to win!",
+  "I'm sorry to tell you this but...",
+  "We're going to talk about convergent evolution!",
   "Good luck out there!"
 ];
 let friend1Lines = [
@@ -22,14 +22,19 @@ let friend1Lines = [
 ];
 let friend2Lines = [
   "You made it this far!",
-  "We all lost our armor plates.",
+  "We all lost our pelvic spines.",
   "The EDA gene drove these changes.",
   "Same gene, different populations!"
+];
+let eagleLines = [
+  "Screech! I'm an eagle!",
+  "I eat sticklebacks for breakfast.",
 ];
 
 let friendTalked = false;
 let friend1Talked = false;
 let friend2Talked = false;
+let eagleTalked = false;
 
 function preload() {
 	grassImg = loadImage('grass.png');
@@ -38,6 +43,7 @@ function preload() {
 	lavaImg = loadImage('spikke.png');
 	charactersImg = loadImage('sticklebacks.png');
 	sharkImg = loadImage('shark.gif')
+	eagleImg = loadImage('neweagle.gif');
 }
 
 function setup() {
@@ -167,6 +173,13 @@ function setup() {
 	friend2.ani = 'idle';
 	friend2.rotationLock = true;
 
+	eagle = new Sprite(700, 100);
+	eagle.ani = eagleImg;
+	eagle.anis.w = 16;
+	eagle.anis.h = 16;
+	eagle.rotationLock = true;
+	eagle.anis.offset.y = 1;
+
 	shark = new Sprite(300, 130);
 	shark.ani = sharkImg;
 	shark.rotationLock = true;
@@ -235,10 +248,14 @@ function keyPressed() {
                 friend2Talked = true;
                 dialogueLine = 0;
                 currentDialogue = friend2Lines;
-            }
-        }
-    }
-
+            } else if (player.overlapping(eagle) && !eagleTalked) {
+				dialogueActive = true;
+				eagleTalked = true;
+				dialogueLine = 0;
+				currentDialogue = eagleLines;
+        	}
+   		}
+	}
     // Advance dialogue with Enter
     if (key === 'Enter' && dialogueActive) {
         dialogueLine++;
@@ -269,11 +286,13 @@ function draw() {
 		if (player.overlapping(friend)) nearFriend = 'friend';
 		else if (player.overlapping(friend1)) nearFriend = 'friend1';
 		else if (player.overlapping(friend2)) nearFriend = 'friend2';
+		else if (player.overlapping(eagle)) nearFriend = 'eagle';
 
 		if (!nearFriend) {
    		friendTalked = false;
     	friend1Talked = false;
     	friend2Talked = false;
+		eagleTalked = false;
 	}
 
 	// --- Water/lava drag (always applies) ---
@@ -354,6 +373,7 @@ function draw() {
 		friend1.visible = false;
 		friend2.visible = false;
 		shark.visible = false;
+		eagle.visible = false;
 		camera.x = player.x;
 	}
 
@@ -381,6 +401,7 @@ function draw() {
 		if (nearFriend === 'friend')  drawPrompt(friend);
 		if (nearFriend === 'friend1') drawPrompt(friend1);
 		if (nearFriend === 'friend2') drawPrompt(friend2);
+		if (nearFriend === 'eagle') drawPrompt(eagle);
 	}
 
 	if (dialogueActive) drawDialogue();

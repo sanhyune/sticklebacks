@@ -172,7 +172,7 @@ function setup() {
 	});
 	friend2.ani = 'idle';
 	friend2.rotationLock = true;
-	
+
 	eagle = new Sprite(700, 100, 16, 16);
 	eagle.spriteSheet = eagleImg;
 	eagle.addAni('idle', { w: 16, h: 16, row: 0, frames: 12 });
@@ -295,8 +295,11 @@ function draw() {
 
 	// --- Water/lava drag (always applies) ---
 	if (groundSensor.overlapping(water)) {
-		player.drag = -20;
-		player.friction = -35;
+		player.drag = 20;
+		player.friction = 35;
+	} else {
+		player.drag = 0;
+		player.friction = 0;
 	}
 
 	// --- Movement: fully blocked during dialogue ---
